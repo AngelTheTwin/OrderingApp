@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-/// A Property Wrapper type that can execute a given fetch function that returns an array of Identifiable objects and provide useful state of the query.
+/// A Property Wrapper type to make fetch async operations asynchronously. Returns the fetched object/struct as the wrappedValue and a tuple conformed by the isLoading, error, refetch and bindingValue properties.
 @propertyWrapper
 struct Query<Value>: DynamicProperty {
     @State private var isLoading: Bool = true
@@ -18,6 +18,7 @@ struct Query<Value>: DynamicProperty {
     
     @State var wrappedValue: Value
     
+    /// - Returns: A tuple conformed by the isLoading, error, refetch and bindingValue properties.
     var projectedValue: (isLoading: Bool, error: Error?, refetch: () -> (), bindingValue: Binding<Value>) {
         Task {
             if (!isFetched) {
@@ -45,8 +46,8 @@ struct Query<Value>: DynamicProperty {
     
     /// Initializer for the Query property wrapper.
     /// - Parameters:
-    ///   - wrappedValue: the default value of the array
-    ///   - query: an async throws function returning an Array of Identifiable objects or structs
+    ///   - wrappedValue: the default value in case the query fails.
+    ///   - query: an async throws function responsible for fetching the data
     init (wrappedValue: Value, query: @escaping () async throws -> Value) {
         self._wrappedValue = State(initialValue: wrappedValue)
         self.query = query
@@ -58,5 +59,5 @@ struct Query<Value>: DynamicProperty {
         isFetched = false
     }
     
-    var query: () async throws -> Value
+    private var query: () async throws -> Value
 }
