@@ -1,6 +1,8 @@
 # OrderingApp
 Ordering app for iOS/iPadOS made in swift using SwiftUI.
 
+This app relays on data fetched from my web service, found [here](https://github.com/AngelTheTwin/AsaderoCienDeliveryService-api).
+
 ## Screens
 ### Login
 
