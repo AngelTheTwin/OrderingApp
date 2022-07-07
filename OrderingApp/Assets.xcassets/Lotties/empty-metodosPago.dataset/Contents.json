@@ -1,0 +1,13 @@
+{
+  "data" : [
+    {
+      "filename" : "empty-metodosPago.json",
+      "idiom" : "universal",
+      "universal-type-identifier" : "Animation"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
